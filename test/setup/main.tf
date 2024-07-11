@@ -18,7 +18,7 @@ module "project" {
   source  = "terraform-google-modules/project-factory/google"
   version = "~> 14.0"
 
-  name              = "ci-cloud-ids"
+  name              = "ci-cloud-pam"
   random_project_id = "true"
   org_id            = var.org_id
   folder_id         = var.folder_id
@@ -27,7 +27,7 @@ module "project" {
   activate_apis = [
     "cloudresourcemanager.googleapis.com",
     "iam.googleapis.com",
-    "ids.googleapis.com",
+    "privilegedaccessmanager.googleapis.com",
     "storage-api.googleapis.com",
     "servicenetworking.googleapis.com",
     "serviceusage.googleapis.com",

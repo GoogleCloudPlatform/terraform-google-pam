@@ -15,7 +15,18 @@
  */
 
 
+variable "billing_account"  {
+  description = "billing account folder_id"
+  type        = string
+  default     = null
+}
+
+variable "organization_id" {
+  description = "Organization id for the PAM setup"
+  type        = string
+  default     = null
+}
+
+
 ##  This code creates PoC example for Privileged Access Manager ##
 ##  It is not developed for production workload ##
-
-

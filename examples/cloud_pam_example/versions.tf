@@ -20,15 +20,18 @@
 
 
 terraform {
+  required_version = ">= 0.13"
   required_providers {
-    google-private = {
-      source  = "google.com/providers/google-private"
-      version = "0.0.1844"
-    }
     google = {
       source  = "hashicorp/google"
-      version = "~> 4.0"
+      version = ">= 3.53, < 6"
+    }
+     google-beta = {
+      source = "hashicorp/google-beta"
     }
   }
-}
 
+  provider_meta "google" {
+    module_name = "GoogleCloudPlatform/terraform-google-pam"
+  }
+}

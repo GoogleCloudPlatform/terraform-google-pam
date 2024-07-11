@@ -46,3 +46,4 @@ module "iam-pam" {
   requester_email_recipients     = ["requestor@example.com"] ## additional users for notification
 }
 
+

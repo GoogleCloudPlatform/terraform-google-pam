@@ -12,20 +12,12 @@
 ##  See the License for the specific language governing permissions and
 ##  limitations under the License.
 
+##  This code creates PoC example for Privileged Access Manager ##
+##  It is not developed for production workload ##
 
-terraform {
-  required_version = ">= 0.13"
-  required_providers {
-    google = {
-      source  = "hashicorp/google"
-      version = ">= 3.53, < 6"
-    }
-     google-beta = {
-      source = "hashicorp/google-beta"
-    }
-  }
 
-  provider_meta "google" {
-    module_name = "GoogleCloudPlatform/terraform-google-pam"
-  }
+# Create Folder in GCP Organization
+resource "google_folder" "app_dev_prod" {
+  display_name = "dev-prod-folder"
+  parent       = "organizations/${var.organization_id}"
 }

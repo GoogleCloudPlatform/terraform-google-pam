@@ -18,16 +18,24 @@
 
 
 
-resource "random_id" "random_suffix" {
-  byte_length = 4
+
+
+# Create storage bucket protected by autokey
+resource "google_storage_bucket" "dev_bucket_name" {
+  name                        = "dev_bucket_${random_id.random_suffix.hex}"
+  location                    = "us-east1"
+  force_destroy               = true
+  project                     = google_project.dev_project_id.project_id
+  uniform_bucket_level_access = true
 }
 
 
 # Create storage bucket protected by autokey
-resource "google_storage_bucket" "simple_bucket_name" {
-  name                        = "simple_bucket_${random_id.random_suffix.hex}"
+resource "google_storage_bucket" "prod_bucket_name" {
+  name                        = "prod_bucket_${random_id.random_suffix.hex}"
   location                    = "us-east1"
   force_destroy               = true
-  project                     = module.iam-pam.project_id
+  project                     = google_project.prod_project_id.project_id
   uniform_bucket_level_access = true
 }
+
