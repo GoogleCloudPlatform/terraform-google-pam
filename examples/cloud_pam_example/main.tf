@@ -22,7 +22,7 @@
 # Configure Cloud Privilege Access Management (PAM)
 module "iam-pam" {
   source  = "GoogleCloudPlatform/pam/google"
-  version = "1.0.0"
+  version = "1.1.0"
   #source                         = "../../"
   pam_at_org_id                  = false       ## Optional, only one should be true for PAM level (Org_id or folder_id or project_id)
   pam_at_folder                  = false       ## Optional, only one should be true for PAM level (Org_id or folder_id or project_id)
