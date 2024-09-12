@@ -58,7 +58,26 @@ resource "time_sleep" "wait_enable_service_api" {
 
 
 resource "google_organization_iam_binding" "pam_sa_admin" {
+  count      = var.pam_at_folder || var.pam_at_project ? 0 : 1
   org_id     = var.organization_id
+  role       = "roles/privilegedaccessmanager.serviceAgent"
+  members    = ["serviceAccount:service-org-${var.organization_id}@gcp-sa-pam.iam.gserviceaccount.com"]
+  depends_on = [time_sleep.wait_enable_service_api]
+}
+
+
+resource "google_folder_iam_binding" "pam_sa_admin" {
+  count      = var.pam_at_folder ? 1 : 0
+  folder     = var.folder_id
+  role       = "roles/privilegedaccessmanager.serviceAgent"
+  members    = ["serviceAccount:service-org-${var.organization_id}@gcp-sa-pam.iam.gserviceaccount.com"]
+  depends_on = [time_sleep.wait_enable_service_api]
+}
+
+
+resource "google_project_iam_binding" "pam_sa_admin" {
+  count      = var.pam_at_project ? 1 : 0
+  project    = var.project_id
   role       = "roles/privilegedaccessmanager.serviceAgent"
   members    = ["serviceAccount:service-org-${var.organization_id}@gcp-sa-pam.iam.gserviceaccount.com"]
   depends_on = [time_sleep.wait_enable_service_api]
