@@ -15,6 +15,15 @@
 ##  This code creates PoC example for Privileged Access Manager ##
 ##  It is not developed for production workload ##
 
+
+# Enable the necessary API services for the billing project
+resource "google_project_service" "pam_api_service" {
+  service                    = "privilegedaccessmanager.googleapis.com"
+  project                    = var.project_id
+  disable_on_destroy         = false
+  disable_dependent_services = false
+}
+
 module "entitlement_project" {
   source  = "GoogleCloudPlatform/pam/google"
   version = "~> 1.0"
@@ -40,6 +49,9 @@ module "entitlement_project" {
     {
       role = "roles/bigquery.admin"
     }
+  ]
+  depends_on = [
+    google_project_service.pam_api_service
   ]
 }
 
