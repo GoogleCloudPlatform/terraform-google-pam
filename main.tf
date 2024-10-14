@@ -42,7 +42,6 @@ resource "google_project_iam_member" "project" {
 }
 
 resource "google_privileged_access_manager_entitlement" "entitlement" {
-  # provider             = google-beta
   entitlement_id       = var.entitlement_id
   location             = var.location
   max_request_duration = "${local.max_request_duration}s"

@@ -14,6 +14,10 @@
  * limitations under the License.
  */
 
+
+##  This code creates PoC example for Privileged Access Manager ##
+##  It is not developed for production workload ##
+
 variable "project_id" {
   description = "The project in which the resource belongs"
   type        = string
@@ -33,6 +37,3 @@ variable "entitlement_requester" {
   description = "Users, groups, service accounts or domains who can request grants using this entitlement"
   type        = string
 }
-
-##  This code creates PoC example for Privileged Access Manager ##
-##  It is not developed for production workload ##

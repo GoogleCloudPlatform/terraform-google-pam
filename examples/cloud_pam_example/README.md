@@ -3,8 +3,8 @@ Privileged Access Manager (PAM) is a Google Cloud native, managed solution to se
 
 # How Privileged Access Manager (PAM) works:
 - Create an Entitlement.
-- Request a Grant against an Entitlement. 
-- Approve or reject a request for a Grant against an Entitlement. 
+- Request a Grant against an Entitlement.
+- Approve or reject a request for a Grant against an Entitlement.
 
 ![Flow Diagram](./flow-diagram.png)
 
