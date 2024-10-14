@@ -1,5 +1,5 @@
 /**
- * Copyright 2019 Google LLC
+ * Copyright 2024 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,20 +16,35 @@
 
 module "project" {
   source  = "terraform-google-modules/project-factory/google"
-  version = "~> 14.0"
+  version = "~> 17.0"
 
-  name              = "ci-cloud-pam"
+  name              = "ci-pam"
   random_project_id = "true"
   org_id            = var.org_id
   folder_id         = var.folder_id
   billing_account   = var.billing_account
+  deletion_policy   = "DELETE"
+
 
   activate_apis = [
-    "cloudresourcemanager.googleapis.com",
+    "compute.googleapis.com",
     "iam.googleapis.com",
     "privilegedaccessmanager.googleapis.com",
     "storage-api.googleapis.com",
     "servicenetworking.googleapis.com",
     "serviceusage.googleapis.com",
+    "cloudresourcemanager.googleapis.com",
   ]
+}
+
+resource "google_folder" "folder" {
+  display_name = "ci-pam-folder"
+  parent       = "folders/${var.folder_id}"
+}
+
+
+resource "google_service_account" "entitlement_requester" {
+  project      = module.project.project_id
+  account_id   = "entitlement-requester"
+  display_name = "entitlement-requester"
 }

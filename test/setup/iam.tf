@@ -1,5 +1,5 @@
 /**
- * Copyright 2019 Google LLC
+ * Copyright 2024 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,9 +19,14 @@ locals {
     "roles/compute.admin",
     "roles/iam.serviceAccountAdmin",
     "roles/iam.serviceAccountUser",
-    "roles/ids.admin",
     "roles/logging.viewer",
-    "roles/servicenetworking.networksAdmin",
+    "roles/privilegedaccessmanager.admin",
+    "roles/resourcemanager.projectIamAdmin",
+  ]
+  int_required_folder_roles = [
+    "roles/resourcemanager.folderAdmin",
+    "roles/resourcemanager.folderIamAdmin",
+    "roles/privilegedaccessmanager.admin",
   ]
 }
 
@@ -39,6 +44,13 @@ resource "google_project_iam_member" "int_test" {
   member  = "serviceAccount:${google_service_account.int_test.email}"
 }
 
+resource "google_folder_iam_member" "int_test_folder" {
+  for_each = toset(local.int_required_folder_roles)
+
+  folder = google_folder.folder.name
+  role   = each.value
+  member = "serviceAccount:${google_service_account.int_test.email}"
+}
 resource "google_service_account_key" "int_test" {
   service_account_id = google_service_account.int_test.id
 }

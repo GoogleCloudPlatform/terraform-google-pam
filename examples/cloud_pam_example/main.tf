@@ -1,4 +1,4 @@
-##  Copyright 2023 Google LLC
+##  Copyright 2024 Google LLC
 ##
 ##  Licensed under the Apache License, Version 2.0 (the "License");
 ##  you may not use this file except in compliance with the License.
@@ -15,35 +15,58 @@
 ##  This code creates PoC example for Privileged Access Manager ##
 ##  It is not developed for production workload ##
 
-
-
-
-
-# Configure Cloud Privilege Access Management (PAM)
-module "iam-pam" {
+module "entitlement_project" {
   source  = "GoogleCloudPlatform/pam/google"
-  version = "1.1.0"
-  #source                         = "../../"
-  pam_at_org_id                  = false       ## Optional, only one should be true for PAM level (Org_id or folder_id or project_id)
-  pam_at_folder                  = false       ## Optional, only one should be true for PAM level (Org_id or folder_id or project_id)
-  pam_at_project                 = true        ## Optional, only one should be true for PAM level (Org_id or folder_id or project_id)
-  organization_id                = "XXXXXXXX"  ## Required for PAM service account premission
-  billing_project_id             = "XXXXXXXXX" ## Required for API billing quota if setting PAM at org level or folder level
-  folder_id                      = ""          ## Optional, only needed for PAM at Folder level
-  project_id                     = ""          ## Optional, only needed for PAM at Project level
-  eligible_users                 = ["user:foo@example.com"]
-  eligible_approvers             = ["user:bar@example.com"]
-  role                           = "roles/storage.admin"
-  role_condition                 = "request.time < timestamp(\"2024-12-31T19:30:00.000Z\")"
-  justification_not_mandatory    = false # The justification is not mandatory but can be provided in any of the supported formats.
-  justification_unstructured     = true  # The requester has to provide a justification in the form of free flowing text.
-  max_request_duration           = "28800s"
-  location                       = "global" #only global is supported currently
-  entitlement_id                 = "pam-entitlement-poc"
-  require_approver_justification = true
-  approver_email_recipients      = ["approver2@example.com"] ## additional users  for notification
-  admin_email_recipients         = ["admin@example.com"]     ## additional users for notification
-  requester_email_recipients     = ["requestor@example.com"] ## additional users for notification
+  version = "~> 1.0"
+
+  entitlement_id                  = "example-entitlement-project"
+  parent_id                       = var.project_id
+  parent_type                     = "project"
+  grant_service_agent_permissions = true
+
+  organization_id = var.org_id
+
+  entitlement_requesters = [
+    "serviceAccount:${var.entitlement_requester}",
+  ]
+  entitlement_approvers = [
+    "domain:google.com",
+  ]
+  role_bindings = [
+    {
+      role                 = "roles/storage.admin"
+      condition_expression = "request.time < timestamp(\"2024-04-23T18:30:00.000Z\")"
+    },
+    {
+      role = "roles/bigquery.admin"
+    }
+  ]
 }
 
+module "entitlement_folder" {
+  source  = "GoogleCloudPlatform/pam/google"
+  version = "~> 1.0"
 
+  entitlement_id                  = "example-entitlement-folder"
+  parent_id                       = var.folder_id
+  parent_type                     = "folder"
+  grant_service_agent_permissions = true
+
+  organization_id = var.org_id
+
+  entitlement_requesters = [
+    "serviceAccount:${var.entitlement_requester}",
+  ]
+  entitlement_approvers = [
+    "domain:google.com",
+  ]
+  role_bindings = [
+    {
+      role                 = "roles/storage.admin"
+      condition_expression = "request.time < timestamp(\"2024-04-23T18:30:00.000Z\")"
+    },
+    {
+      role = "roles/bigquery.admin"
+    }
+  ]
+}
