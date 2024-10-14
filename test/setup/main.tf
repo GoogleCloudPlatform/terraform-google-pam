@@ -37,8 +37,11 @@ module "project" {
   ]
 }
 
+resource "random_id" "suffix" {
+  byte_length = 4
+}
 resource "google_folder" "folder" {
-  display_name = "ci-pam-folder"
+  display_name = "ci-pam-folder-${random_id.suffix.hex}"
   parent       = "folders/${var.folder_id}"
 }
 
