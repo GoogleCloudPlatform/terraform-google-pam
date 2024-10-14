@@ -28,10 +28,9 @@ module "entitlement_project" {
   source  = "GoogleCloudPlatform/pam/google"
   version = "~> 1.0"
 
-  entitlement_id                  = "example-entitlement-project"
-  parent_id                       = var.project_id
-  parent_type                     = "project"
-  grant_service_agent_permissions = true
+  entitlement_id = "example-entitlement-project"
+  parent_id      = var.project_id
+  parent_type    = "project"
 
   organization_id = var.org_id
 
@@ -59,10 +58,9 @@ module "entitlement_folder" {
   source  = "GoogleCloudPlatform/pam/google"
   version = "~> 1.0"
 
-  entitlement_id                  = "example-entitlement-folder"
-  parent_id                       = var.folder_id
-  parent_type                     = "folder"
-  grant_service_agent_permissions = true
+  entitlement_id = "example-entitlement-folder"
+  parent_id      = var.folder_id
+  parent_type    = "folder"
 
   organization_id = var.org_id
 
