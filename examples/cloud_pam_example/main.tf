@@ -34,6 +34,8 @@ module "entitlement_project" {
 
   organization_id = var.org_id
 
+  grant_service_agent_permissions = true
+
   entitlement_requesters = [
     "serviceAccount:${var.entitlement_requester}",
   ]
@@ -63,6 +65,8 @@ module "entitlement_folder" {
   parent_type    = "folder"
 
   organization_id = var.org_id
+
+  grant_service_agent_permissions = true
 
   entitlement_requesters = [
     "serviceAccount:${var.entitlement_requester}",
