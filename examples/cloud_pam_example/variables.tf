@@ -1,5 +1,5 @@
 /**
- * Copyright 2021 Google LLC
+ * Copyright 2024 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,18 +15,25 @@
  */
 
 
-variable "billing_account"  {
-  description = "billing account folder_id"
-  type        = string
-  default     = null
-}
-
-variable "organization_id" {
-  description = "Organization id for the PAM setup"
-  type        = string
-  default     = null
-}
-
-
 ##  This code creates PoC example for Privileged Access Manager ##
 ##  It is not developed for production workload ##
+
+variable "project_id" {
+  description = "The project in which the resource belongs"
+  type        = string
+}
+
+variable "folder_id" {
+  description = "The folder in which the resource belongs"
+  type        = string
+}
+
+variable "org_id" {
+  description = "The organization ID"
+  type        = string
+}
+
+variable "entitlement_requester" {
+  description = "Users, groups, service accounts or domains who can request grants using this entitlement"
+  type        = string
+}

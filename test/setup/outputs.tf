@@ -1,5 +1,5 @@
 /**
- * Copyright 2019 Google LLC
+ * Copyright 2024 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,6 +14,10 @@
  * limitations under the License.
  */
 
+output "org_id" {
+  value = var.org_id
+}
+
 output "project_id" {
   value = module.project.project_id
 }
@@ -21,4 +25,12 @@ output "project_id" {
 output "sa_key" {
   value     = google_service_account_key.int_test.private_key
   sensitive = true
+}
+
+output "folder_id" {
+  value = google_folder.folder.folder_id
+}
+
+output "entitlement_requester" {
+  value = google_service_account.entitlement_requester.email
 }
