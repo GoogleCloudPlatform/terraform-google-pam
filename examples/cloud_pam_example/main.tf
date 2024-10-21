@@ -26,7 +26,7 @@ resource "google_project_service" "pam_api_service" {
 
 module "entitlement_project" {
   source  = "GoogleCloudPlatform/pam/google"
-  version = "~> 1.0"
+  version = "~> 2.0"
 
   entitlement_id = "example-entitlement-project"
   parent_id      = var.project_id
@@ -37,10 +37,10 @@ module "entitlement_project" {
   grant_service_agent_permissions = true
 
   entitlement_requesters = [
-    "serviceAccount:${var.entitlement_requester}",
+    "user:dbadmin@develop.blueprints.joonix.net",
   ]
   entitlement_approvers = [
-    "domain:google.com",
+    "group:subtest@develop.blueprints.joonix.net",
   ]
   role_bindings = [
     {
@@ -58,7 +58,7 @@ module "entitlement_project" {
 
 module "entitlement_folder" {
   source  = "GoogleCloudPlatform/pam/google"
-  version = "~> 1.0"
+  version = "~> 2.0"
 
   entitlement_id = "example-entitlement-folder"
   parent_id      = var.folder_id

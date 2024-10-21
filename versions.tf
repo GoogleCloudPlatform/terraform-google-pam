@@ -22,8 +22,7 @@ terraform {
       version = ">= 6.5, < 7"
     }
   }
-
   provider_meta "google" {
-    module_name = "blueprints/terraform/terraform-google-pam/v0.2.0"
+    module_name = "blueprints/terraform/terraform-google-pam/v1.1.0"
   }
 }
