@@ -1,5 +1,5 @@
 /**
- * Copyright 2021 Google LLC
+ * Copyright 2024 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,12 +17,27 @@
 ##  This code creates PoC example for Privileged Access Manager ##
 ##  It is not developed for production workload ##
 
-output "billing_project_id" {
-  description = "billing project id"
-  value       = module.iam-pam.project_id
+output "project_entitlement" {
+  description = "Project level entitlement created "
+  value       = module.entitlement_project.entitlement
 }
 
-output "entitlement_region" {
-  description = "resources region "
-  value       = module.iam-pam.region
+output "project_entitlement_id" {
+  description = "Project level entitlement ID"
+  value       = module.entitlement_project.entitlement.id
+}
+
+output "folder_entitlement" {
+  description = "Folder level entitlement created "
+  value       = module.entitlement_folder.entitlement
+}
+
+output "folder_entitlement_id" {
+  description = "Folder level entitlement ID"
+  value       = module.entitlement_folder.entitlement.id
+}
+
+output "folder_entitlement_parent" {
+  description = "parent of Folder level entitlement ID"
+  value       = element(split("/", module.entitlement_folder.entitlement.parent), 1)
 }
