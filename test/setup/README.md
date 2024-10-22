@@ -49,6 +49,9 @@ module cloud_ids {
 
 | Name | Description |
 |------|-------------|
+| entitlement\_requester | n/a |
+| folder\_id | n/a |
+| org\_id | n/a |
 | project\_id | n/a |
 | sa\_key | n/a |
 

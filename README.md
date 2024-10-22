@@ -3,8 +3,8 @@ Privileged Access Manager (PAM) is a Google Cloud native, managed solution to se
 
 # How Privileged Access Manager (PAM) works:
 - Create an Entitlement.
-- Request a Grant against an Entitlement. 
-- Approve or reject a request for a Grant against an Entitlement. 
+- Request a Grant against an Entitlement.
+- Approve or reject a request for a Grant against an Entitlement.
 
 ![Flow Diagram](./flow-diagram.png)
 
@@ -12,30 +12,32 @@ Privileged Access Manager (PAM) is a Google Cloud native, managed solution to se
 
 ```tf
 # Configure Cloud Privilege Access Management (PAM)
-module "iam-pam" {
-  #source  = "GoogleCloudPlatform/iam-pam/google"
-  #version = "1.0.0"
-  source                         = "../../"
-  pam_at_org_id                  = false       ## Optional, only one should be true for PAM level (Org_id or folder_id or project_id)
-  pam_at_folder                  = false       ## Optional, only one should be true for PAM level (Org_id or folder_id or project_id)
-  pam_at_project                 = true        ## Optional, only one should be true for PAM level (Org_id or folder_id or project_id)
-  organization_id                = "XXXXXXXX"  ## Required for PAM service account premission
-  billing_project_id             = "XXXXXXXXX" ## Required for API billing quota if setting PAM at org level or folder level
-  folder_id                      = ""          ## Optional, only needed for PAM at Folder level
-  project_id                     = ""          ## Optional, only needed for PAM at Project level
-  eligible_users                 = ["user:foo@example.com"]
-  eligible_approvers             = ["user:bar@example.com"]
-  role                           = "roles/storage.admin"
-  role_condition                 = "request.time < timestamp(\"2024-12-31T19:30:00.000Z\")"
-  justification_not_mandatory    = false # The justification is not mandatory but can be provided in any of the supported formats.
-  justification_unstructured     = true  # The requester has to provide a justification in the form of free flowing text.
-  max_request_duration           = "28800s"
-  location                       = "global" #only global is supported currently
-  entitlement_id                 = "pam-entitlement-poc"
-  require_approver_justification = true
-  approver_email_recipients      = ["approver2@example.com"] ## additional users  for notification
-  admin_email_recipients         = ["admin@example.com"]     ## additional users for notification
-  requester_email_recipients     = ["requestor@example.com"] ## additional users for notification
+module "entitlement_project" {
+  source  = "GoogleCloudPlatform/pam/google"
+  version = "~> 2.0"
+
+  entitlement_id                  = "example-entitlement-project"
+  parent_id                       = var.project_id
+  parent_type                     = "project"
+  grant_service_agent_permissions = true
+
+  organization_id = var.org_id
+
+  entitlement_requesters = [
+    "serviceAccount:${var.entitlement_requester}",
+  ]
+  entitlement_approvers = [
+    "domain:google.com",
+  ]
+  role_bindings = [
+    {
+      role                 = "roles/storage.admin"
+      condition_expression = "request.time < timestamp(\"2024-04-23T18:30:00.000Z\")"
+    },
+    {
+      role = "roles/bigquery.admin"
+    }
+  ]
 }
 
 ```
@@ -45,33 +47,26 @@ module "iam-pam" {
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| admin\_email\_recipients | (Optional) List of users, additional email addresses to be notified when a principal(requester) is granted access. | `list(string)` | `null` | no |
-| approver\_email\_recipients | (Optional) List of users, dditional email addresses to be notified when a grant is pending approval. | `list(string)` | `null` | no |
-| billing\_project\_id | Project id for API billing quota if setting PAM at org level or folder level | `string` | n/a | yes |
-| eligible\_approvers | List of users, who can approve Grants using Entitlement | `list(string)` | n/a | yes |
-| eligible\_users | List of users, who can create Grants using Entitlement | `list(string)` | n/a | yes |
-| entitlement\_id | The ID to use for this Entitlement. This will become the last part of the resource name. This value should be 4-63 characters, and valid characters are [a-z], [0-9], and -. The first character should be from [a-z]. This value should be unique among all other Entitlements under the specified | `string` | n/a | yes |
-| folder\_id | Folder id for the PAM setup | `string` | `null` | no |
-| justification\_not\_mandatory | The justification is not mandatory but can be provided in any of the supported formats. | `bool` | `false` | no |
-| justification\_unstructured | The requester has to provide a justification in the form of free flowing text. | `bool` | `true` | no |
-| location | The region of the Entitlement resource. | `string` | n/a | yes |
-| max\_request\_duration | The maximum amount of time for which access would be granted for a request. | `string` | n/a | yes |
-| organization\_id | Organization id for the PAM setup | `string` | n/a | yes |
-| pam\_at\_folder | If true, the Terraform will create PAM at folder level. | `bool` | `false` | no |
-| pam\_at\_org\_id | If true, the Terraform will create PAM at org level. | `bool` | `false` | no |
-| pam\_at\_project | If true, the Terraform will create PAM at project level. | `bool` | `true` | no |
-| project\_id | Project id for the PAM setup | `string` | `null` | no |
-| requester\_email\_recipients | (Optional) List of users, additional email address to be notified about an eligible entitlement. | `list(string)` | `null` | no |
-| require\_approver\_justification | (Optional) Do the approvers need to provide a justification for their actions. | `bool` | `true` | no |
-| role | IAM role to be granted. | `string` | n/a | yes |
-| role\_condition | The expression field of the IAM condition to be associated with the role. | `string` | `null` | no |
+| entitlement\_approval\_notification\_recipients | List of email addresses to be notified when a request is granted | `list(string)` | `[]` | no |
+| entitlement\_approvers | Required List of users, groups or domain who can approve this entitlement. Can be one or more of Google Account email, Google Group or Google Workspace domain | `list(string)` | n/a | yes |
+| entitlement\_availability\_notification\_recipients | List of email addresses to be notified when a entitlement is created. These email addresses will receive an email about availability of the entitlement | `list(string)` | `[]` | no |
+| entitlement\_id | The ID to use for this Entitlement. This will become the last part of the resource name. This value should be 4-63 characters. This value should be unique among all other Entitlements under the specified parent | `string` | n/a | yes |
+| entitlement\_requesters | Required List of users, groups, service accounts or domains who can request grants using this entitlement. Can be one or more of Google Account email, Google Group, Service account or Google Workspace domain | `list(string)` | n/a | yes |
+| grant\_service\_agent\_permissions | Whether or not to grant roles/privilegedaccessmanager.serviceAgent role to PAM service account | `bool` | `false` | no |
+| location | The region of the Entitlement resource | `string` | `"global"` | no |
+| max\_request\_duration\_hours | The maximum amount of time for which access would be granted for a request. A requester can choose to ask for access for less than this duration but never more | `number` | `1` | no |
+| organization\_id | Organization id | `string` | n/a | yes |
+| parent\_id | The ID of organization, folder, or project to create the entitlement in | `string` | n/a | yes |
+| parent\_type | Parent type. Can be organization, folder, or project to create the entitlement in | `string` | n/a | yes |
+| requester\_justification | If the requester is required to provide a justification | `bool` | `true` | no |
+| require\_approver\_justification | Do the approvers need to provide a justification for their actions | `bool` | `true` | no |
+| role\_bindings | The maximum amount of time for which access would be granted for a request. A requester can choose to ask for access for less than this duration but never more | <pre>list(object({<br>    role                 = string<br>    condition_expression = optional(string)<br>  }))</pre> | n/a | yes |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| project\_id | billing project id |
-| region | resources region |
+| entitlement | Entitlement created |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
@@ -103,7 +98,7 @@ service account with the necessary roles applied.
 A project with the following APIs enabled must be used to host the
 resources of this module:
 
-- Cloud KMS API: `privilegedaccessmanager.googleapis.com`
+- Cloud API: `privilegedaccessmanager.googleapis.com`
 
 The [Project Factory module][project-factory-module] can be used to
 provision a project with the necessary APIs enabled.
