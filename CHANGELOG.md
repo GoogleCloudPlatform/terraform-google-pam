@@ -1,5 +1,18 @@
 # Changelog
 
+## [2.0.0](https://github.com/GoogleCloudPlatform/terraform-google-pam/compare/1.1.1...v2.0.0) (2024-11-11)
+
+
+### ⚠ BREAKING CHANGES
+
+* Added missing capabilities and fixed tests ([#13](https://github.com/GoogleCloudPlatform/terraform-google-pam/issues/13))
+
+### Features
+
+* Added missing capabilities and fixed tests ([#13](https://github.com/GoogleCloudPlatform/terraform-google-pam/issues/13)) ([f582157](https://github.com/GoogleCloudPlatform/terraform-google-pam/commit/f5821575dc9d2431160932c8b592f2b7d5d7cb67))
+
+## Changelog
+
 All notable changes to this project will be documented in this file.
 
 The format is based on
@@ -7,4 +20,3 @@ The format is based on
 and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 This changelog is generated automatically based on [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/).
-
