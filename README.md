@@ -1,12 +1,7 @@
 # Cloud Privileged Access Manager (PAM) Module
-Privileged Access Manager (PAM) is a Google Cloud native, managed solution to secure, manage and audit privileged access while ensuring operational velocity and developer productivity. PAM enables just-in-time, time-bound, approval-based access elevations, and auditing of privileged access elevations and activity. PAM lets you define the rules of who can access, what they can access, and if they should be granted access with or without approvals based on the sensitivity of the access and emergency of the situation. This module makes it easy to set up [Privileged Access Manager](https://https://cloud.google.com/iam/docs/pam-overview).
+This module makes it easy to set up [Privileged Access Manager](https://https://cloud.google.com/iam/docs/pam-overview). Privileged Access Manager (PAM) is a Google Cloud native, managed solution to secure, manage and audit privileged access while ensuring operational velocity and developer productivity. PAM enables just-in-time, time-bound, approval-based access elevations, and auditing of privileged access elevations and activity. PAM lets you define the rules of who can access, what they can access, and if they should be granted access with or without approvals based on the sensitivity of the access and emergency of the situation.
 
-# How Privileged Access Manager (PAM) works:
-- Create an Entitlement.
-- Request a Grant against an Entitlement.
-- Approve or reject a request for a Grant against an Entitlement.
-
-![Flow Diagram](./flow-diagram.png)
+Functional examples are included in the [examples](https://github.com/GoogleCloudPlatform/terraform-google-pam/tree/main/examples) directory
 
 ##  Usage
 
@@ -39,7 +34,6 @@ module "entitlement_project" {
     }
   ]
 }
-
 ```
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
@@ -78,8 +72,8 @@ These sections describe requirements for using this module.
 
 The following dependencies must be available:
 
-- [Terraform][terraform] v1.3
-- [Terraform Provider for GCP][terraform-provider-gcp] plugin v3.53
+- [Terraform][terraform] v1.3+
+- [Terraform Provider for GCP][terraform-provider-gcp] plugin v6.5+
 
 ### Service Account and User Permissions
 
