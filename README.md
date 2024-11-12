@@ -3,8 +3,8 @@ Privileged Access Manager (PAM) is a Google Cloud native, managed solution to se
 
 # How Privileged Access Manager (PAM) works:
 - Create an Entitlement.
-- Request a Grant against an Entitlement.
-- Approve or reject a request for a Grant against an Entitlement.
+- Request a Grant against an Entitlement. 
+- Approve or reject a request for a Grant against an Entitlement. 
 
 ![Flow Diagram](./flow-diagram.png)
 
@@ -39,7 +39,6 @@ module "entitlement_project" {
     }
   ]
 }
-
 ```
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
@@ -78,8 +77,8 @@ These sections describe requirements for using this module.
 
 The following dependencies must be available:
 
-- [Terraform][terraform] v1.3
-- [Terraform Provider for GCP][terraform-provider-gcp] plugin v3.53
+- [Terraform][terraform] v1.3+
+- [Terraform Provider for GCP][terraform-provider-gcp] plugin v6.5+
 
 ### Service Account and User Permissions
 
