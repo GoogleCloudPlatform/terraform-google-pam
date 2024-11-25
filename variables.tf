@@ -36,7 +36,8 @@ variable "entitlement_requesters" {
 
 variable "entitlement_approvers" {
   type        = list(string)
-  description = "Required List of users, groups or domain who can approve this entitlement. Can be one or more of Google Account email, Google Group or Google Workspace domain"
+  description = "List of users, groups or domain who can approve this entitlement. Can be one or more of Google Account email, Google Group or Google Workspace domain"
+  default     = []
 }
 
 variable "entitlement_approval_notification_recipients" {
@@ -96,4 +97,10 @@ variable "grant_service_agent_permissions" {
   type        = bool
   description = "Whether or not to grant roles/privilegedaccessmanager.serviceAgent role to PAM service account"
   default     = false
+}
+
+variable "enable_approval_workflow" {
+  type        = bool
+  description = "Whether or not to allow access without approval"
+  default     = true
 }
