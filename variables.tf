@@ -36,7 +36,7 @@ variable "entitlement_requesters" {
 
 variable "entitlement_approvers" {
   type        = list(string)
-  description = "List of users, groups or domain who can approve this entitlement. Can be one or more of Google Account email, Google Group or Google Workspace domain"
+  description = "List of users, groups or domain who can approve this entitlement. Can be one or more of Google Account email, Google Group or Google Workspace domain. Required if enable_approval_workflow is true (default)"
   default     = []
 }
 

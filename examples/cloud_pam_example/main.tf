@@ -56,6 +56,38 @@ module "entitlement_project" {
   ]
 }
 
+module "entitlement_project_no_approval" {
+  source  = "GoogleCloudPlatform/pam/google"
+  version = "~> 2.0"
+
+  entitlement_id = "example-entitlement-project-no-approval"
+  parent_id      = var.project_id
+  parent_type    = "project"
+
+  organization_id = var.org_id
+
+  grant_service_agent_permissions = true
+
+  enable_approval_workflow = false
+
+  entitlement_requesters = [
+    "user:dbadmin@develop.blueprints.joonix.net",
+  ]
+
+  role_bindings = [
+    {
+      role                 = "roles/storage.admin"
+      condition_expression = "request.time < timestamp(\"2024-04-23T18:30:00.000Z\")"
+    },
+    {
+      role = "roles/bigquery.admin"
+    }
+  ]
+  depends_on = [
+    google_project_service.pam_api_service
+  ]
+}
+
 module "entitlement_folder" {
   source  = "GoogleCloudPlatform/pam/google"
   version = "~> 2.0"
