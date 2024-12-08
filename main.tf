@@ -83,7 +83,7 @@ resource "google_privileged_access_manager_entitlement" "entitlement" {
   }
 
   dynamic "approval_workflow" {
-    for_each = var.enable_approval_workflow ? ["approval_workflow_enabled"] : []
+    for_each = var.auto_approve_entitlement ? [] : ["approval_workflow_enabled"]
     content {
       manual_approvals {
         require_approver_justification = var.require_approver_justification

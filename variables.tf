@@ -36,7 +36,7 @@ variable "entitlement_requesters" {
 
 variable "entitlement_approvers" {
   type        = list(string)
-  description = "List of users, groups or domain who can approve this entitlement. Can be one or more of Google Account email, Google Group or Google Workspace domain. Required if enable_approval_workflow is true (default)"
+  description = "List of users, groups or domain who can approve this entitlement. Can be one or more of Google Account email, Google Group or Google Workspace domain. Required if auto_approve_entitlement is false (default)"
   default     = []
 }
 
@@ -99,8 +99,8 @@ variable "grant_service_agent_permissions" {
   default     = false
 }
 
-variable "enable_approval_workflow" {
+variable "auto_approve_entitlement" {
   type        = bool
-  description = "Whether or not to allow access without approval"
-  default     = true
+  description = "Whether or not to auto approve the entitlement. If true, entitlement will be auto approved without any manual approval"
+  default     = false
 }

@@ -68,7 +68,7 @@ module "entitlement_project_no_approval" {
 
   grant_service_agent_permissions = true
 
-  enable_approval_workflow = false
+  auto_approve_entitlement = true
 
   entitlement_requesters = [
     "user:dbadmin@develop.blueprints.joonix.net",
