@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.0](https://github.com/GoogleCloudPlatform/terraform-google-pam/compare/v2.0.0...v2.1.0) (2024-12-09)
+
+
+### Features
+
+* Support workflow auto approval ([#17](https://github.com/GoogleCloudPlatform/terraform-google-pam/issues/17)) ([739cf5b](https://github.com/GoogleCloudPlatform/terraform-google-pam/commit/739cf5b9f5658a3a061d6ebdfcf8af56649e5cb3))
+
 ## [2.0.0](https://github.com/GoogleCloudPlatform/terraform-google-pam/compare/1.1.1...v2.0.0) (2024-11-11)
 
 
