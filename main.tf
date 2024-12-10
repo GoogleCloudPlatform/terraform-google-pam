@@ -82,15 +82,17 @@ resource "google_privileged_access_manager_entitlement" "entitlement" {
     }
   }
 
-  approval_workflow {  # Only 1 approval_workflow is allowed
-    manual_approvals { # Only 1 manual_approvals is allowed
-      require_approver_justification = var.require_approver_justification
-      # Only 1 step is allowed
-      steps {
-        approvals_needed          = 1
-        approver_email_recipients = var.entitlement_approval_notification_recipients
-        approvers {
-          principals = var.entitlement_approvers
+  dynamic "approval_workflow" {
+    for_each = var.auto_approve_entitlement ? [] : ["approval_workflow_enabled"]
+    content {
+      manual_approvals {
+        require_approver_justification = var.require_approver_justification
+        steps {
+          approvals_needed          = 1
+          approver_email_recipients = var.entitlement_approval_notification_recipients
+          approvers {
+            principals = var.entitlement_approvers
+          }
         }
       }
     }

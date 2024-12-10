@@ -1,12 +1,7 @@
 # Cloud Privileged Access Manager (PAM) Module
-Privileged Access Manager (PAM) is a Google Cloud native, managed solution to secure, manage and audit privileged access while ensuring operational velocity and developer productivity. PAM enables just-in-time, time-bound, approval-based access elevations, and auditing of privileged access elevations and activity. PAM lets you define the rules of who can access, what they can access, and if they should be granted access with or without approvals based on the sensitivity of the access and emergency of the situation. This module makes it easy to set up [Privileged Access Manager](https://https://cloud.google.com/iam/docs/pam-overview).
+This module makes it easy to set up [Privileged Access Manager](https://cloud.google.com/iam/docs/pam-overview). Privileged Access Manager (PAM) is a Google Cloud native, managed solution to secure, manage and audit privileged access while ensuring operational velocity and developer productivity. PAM enables just-in-time, time-bound, approval-based access elevations, and auditing of privileged access elevations and activity. PAM lets you define the rules of who can access, what they can access, and if they should be granted access with or without approvals based on the sensitivity of the access and emergency of the situation.
 
-# How Privileged Access Manager (PAM) works:
-- Create an Entitlement.
-- Request a Grant against an Entitlement.
-- Approve or reject a request for a Grant against an Entitlement.
-
-![Flow Diagram](./flow-diagram.png)
+Functional examples are included in the [examples](https://github.com/GoogleCloudPlatform/terraform-google-pam/tree/main/examples) directory
 
 ##  Usage
 
@@ -39,7 +34,6 @@ module "entitlement_project" {
     }
   ]
 }
-
 ```
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
@@ -47,8 +41,9 @@ module "entitlement_project" {
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| auto\_approve\_entitlement | Whether or not to auto approve the entitlement. If true, entitlement will be auto approved without any manual approval | `bool` | `false` | no |
 | entitlement\_approval\_notification\_recipients | List of email addresses to be notified when a request is granted | `list(string)` | `[]` | no |
-| entitlement\_approvers | Required List of users, groups or domain who can approve this entitlement. Can be one or more of Google Account email, Google Group or Google Workspace domain | `list(string)` | n/a | yes |
+| entitlement\_approvers | List of users, groups or domain who can approve this entitlement. Can be one or more of Google Account email, Google Group or Google Workspace domain. Required if auto\_approve\_entitlement is false (default) | `list(string)` | `[]` | no |
 | entitlement\_availability\_notification\_recipients | List of email addresses to be notified when a entitlement is created. These email addresses will receive an email about availability of the entitlement | `list(string)` | `[]` | no |
 | entitlement\_id | The ID to use for this Entitlement. This will become the last part of the resource name. This value should be 4-63 characters. This value should be unique among all other Entitlements under the specified parent | `string` | n/a | yes |
 | entitlement\_requesters | Required List of users, groups, service accounts or domains who can request grants using this entitlement. Can be one or more of Google Account email, Google Group, Service account or Google Workspace domain | `list(string)` | n/a | yes |
@@ -78,8 +73,8 @@ These sections describe requirements for using this module.
 
 The following dependencies must be available:
 
-- [Terraform][terraform] v1.3
-- [Terraform Provider for GCP][terraform-provider-gcp] plugin v3.53
+- [Terraform][terraform] v1.3+
+- [Terraform Provider for GCP][terraform-provider-gcp] plugin v6.5+
 
 ### Service Account and User Permissions
 
