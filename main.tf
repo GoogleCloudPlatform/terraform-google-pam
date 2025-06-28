@@ -89,7 +89,7 @@ resource "google_privileged_access_manager_entitlement" "entitlement" {
         require_approver_justification = var.require_approver_justification
         steps {
           approvals_needed          = 1
-          approver_email_recipients = var.entitlement_approval_notification_recipients
+          approver_email_recipients = var.entitlement_pending_notification_recipients
           approvers {
             principals = var.entitlement_approvers
           }
