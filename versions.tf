@@ -23,6 +23,6 @@ terraform {
     }
   }
   provider_meta "google" {
-    module_name = "blueprints/terraform/terraform-google-pam/v2.1.0"
+    module_name = "blueprints/terraform/terraform-google-pam/v3.0.0"
   }
 }
