@@ -46,6 +46,12 @@ variable "entitlement_approval_notification_recipients" {
   default     = []
 }
 
+variable "entitlement_pending_notification_recipients" {
+  type        = list(string)
+  description = "List of additional email addresses to be notified when a grant is pending approval"
+  default     = []
+}
+
 variable "entitlement_availability_notification_recipients" {
   type        = list(string)
   description = "List of email addresses to be notified when a entitlement is created. These email addresses will receive an email about availability of the entitlement"

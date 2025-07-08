@@ -46,6 +46,7 @@ module "entitlement_project" {
 | entitlement\_approvers | List of users, groups or domain who can approve this entitlement. Can be one or more of Google Account email, Google Group or Google Workspace domain. Required if auto\_approve\_entitlement is false (default) | `list(string)` | `[]` | no |
 | entitlement\_availability\_notification\_recipients | List of email addresses to be notified when a entitlement is created. These email addresses will receive an email about availability of the entitlement | `list(string)` | `[]` | no |
 | entitlement\_id | The ID to use for this Entitlement. This will become the last part of the resource name. This value should be 4-63 characters. This value should be unique among all other Entitlements under the specified parent | `string` | n/a | yes |
+| entitlement\_pending\_notification\_recipients | List of additional email addresses to be notified when a grant is pending approval | `list(string)` | `[]` | no |
 | entitlement\_requesters | Required List of users, groups, service accounts or domains who can request grants using this entitlement. Can be one or more of Google Account email, Google Group, Service account or Google Workspace domain | `list(string)` | n/a | yes |
 | grant\_service\_agent\_permissions | Whether or not to grant roles/privilegedaccessmanager.serviceAgent role to PAM service account | `bool` | `false` | no |
 | location | The region of the Entitlement resource | `string` | `"global"` | no |
