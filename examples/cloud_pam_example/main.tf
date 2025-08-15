@@ -26,7 +26,7 @@ resource "google_project_service" "pam_api_service" {
 
 module "entitlement_project" {
   source  = "GoogleCloudPlatform/pam/google"
-  version = "~> 2.0"
+  version = "~> 3.0"
 
   entitlement_id = "example-entitlement-project"
   parent_id      = var.project_id
@@ -58,7 +58,7 @@ module "entitlement_project" {
 
 module "entitlement_project_no_approval" {
   source  = "GoogleCloudPlatform/pam/google"
-  version = "~> 2.0"
+  version = "~> 3.0"
 
   entitlement_id = "example-entitlement-project-no-approval"
   parent_id      = var.project_id
@@ -90,7 +90,7 @@ module "entitlement_project_no_approval" {
 
 module "entitlement_folder" {
   source  = "GoogleCloudPlatform/pam/google"
-  version = "~> 2.0"
+  version = "~> 3.0"
 
   entitlement_id = "example-entitlement-folder"
   parent_id      = var.folder_id
