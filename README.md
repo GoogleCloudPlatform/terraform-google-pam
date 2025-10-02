@@ -9,7 +9,7 @@ Functional examples are included in the [examples](https://github.com/GoogleClou
 # Configure Cloud Privilege Access Management (PAM)
 module "entitlement_project" {
   source  = "GoogleCloudPlatform/pam/google"
-  version = "~> 3.0"
+  version = "~> 3.1"
 
   entitlement_id                  = "example-entitlement-project"
   parent_id                       = var.project_id

@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.1.0](https://github.com/GoogleCloudPlatform/terraform-google-pam/compare/v3.0.0...v3.1.0) (2025-10-02)
+
+
+### Features
+
+* **deps:** Update Terraform google to v7 ([#34](https://github.com/GoogleCloudPlatform/terraform-google-pam/issues/34)) ([da3e01b](https://github.com/GoogleCloudPlatform/terraform-google-pam/commit/da3e01b54c16602e8a2aed715381d3e779cd0b59))
+
 ## [3.0.0](https://github.com/GoogleCloudPlatform/terraform-google-pam/compare/v2.1.0...v3.0.0) (2025-07-08)
 
 
