@@ -2,7 +2,7 @@ module github.com/terraform-google-modules/cloud-ids/test/integration
 
 go 1.23.0
 
-toolchain go1.24.7
+toolchain go1.24.11
 
 require (
 	github.com/GoogleCloudPlatform/cloud-foundation-toolkit/infra/blueprint-test v0.17.9
@@ -62,5 +62,4 @@ require (
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 	k8s.io/kube-openapi v0.0.0-20241212222426-2c72e554b1e7 // indirect
 	sigs.k8s.io/kustomize/kyaml v0.20.1 // indirect
-	sigs.k8s.io/yaml v1.5.0 // indirect
 )
