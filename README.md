@@ -56,7 +56,7 @@ module "entitlement_project" {
 | parent\_type | Parent type. Can be organization, folder, or project to create the entitlement in | `string` | n/a | yes |
 | requester\_justification | If the requester is required to provide a justification | `bool` | `true` | no |
 | require\_approver\_justification | Do the approvers need to provide a justification for their actions | `bool` | `true` | no |
-| role\_bindings | The maximum amount of time for which access would be granted for a request. A requester can choose to ask for access for less than this duration but never more | <pre>list(object({<br>    role                 = string<br>    condition_expression = optional(string)<br>  }))</pre> | n/a | yes |
+| role\_bindings | List of IAM role bindings to be granted through this entitlement. Each binding specifies a role and an optional IAM condition expression | <pre>list(object({<br>    role                 = string<br>    condition_expression = optional(string)<br>  }))</pre> | n/a | yes |
 
 ## Outputs
 
