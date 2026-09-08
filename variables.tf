@@ -63,7 +63,7 @@ variable "role_bindings" {
     role                 = string
     condition_expression = optional(string)
   }))
-  description = "The maximum amount of time for which access would be granted for a request. A requester can choose to ask for access for less than this duration but never more"
+  description = "List of IAM role bindings to be granted through this entitlement. Each binding specifies a role and an optional IAM condition expression"
 }
 
 variable "requester_justification" {
